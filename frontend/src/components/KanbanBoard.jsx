@@ -4,7 +4,11 @@ const columns = [
   { key: "done", title: "Done" },
 ];
 
-export default function KanbanBoard({ tasks, onDeleteTask, onDragEndTask }) {
+export default function KanbanBoard({
+  tasks,
+  onDeleteTask,
+  onStatusChange,
+}) {
   const getTasksByStatus = (status) =>
     tasks.filter((task) => task.status === status);
 
@@ -33,21 +37,23 @@ export default function KanbanBoard({ tasks, onDeleteTask, onDragEndTask }) {
 
                   <div className="task-actions">
                     {task.status !== "todo" && (
-                      <button onClick={() => onDragEndTask(task.id, "todo")}>
+                      <button onClick={() => onStatusChange(task.id, "todo")}>
                         Do To Do
                       </button>
                     )}
 
                     {task.status !== "in_progress" && (
                       <button
-                        onClick={() => onDragEndTask(task.id, "in_progress")}
+                        onClick={() =>
+                          onStatusChange(task.id, "in_progress")
+                        }
                       >
                         Do In Progress
                       </button>
                     )}
 
                     {task.status !== "done" && (
-                      <button onClick={() => onDragEndTask(task.id, "done")}>
+                      <button onClick={() => onStatusChange(task.id, "done")}>
                         Do Done
                       </button>
                     )}
